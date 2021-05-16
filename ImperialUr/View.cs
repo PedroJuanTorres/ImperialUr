@@ -110,6 +110,13 @@ namespace ImperialUr
                 Console.ReadKey ();
                 View.CleanScreen ();
             }
+
+            else if (c == "Instructions")
+            {
+                Console.WriteLine ("\n\nPress any key to go back to the Menu ...");
+                Console.ReadKey ();
+                View.CleanScreen ();
+            }
         }
 
 
@@ -158,6 +165,74 @@ namespace ImperialUr
             View.Back ();
         }
 
+
+        public static string PauseInput () 
+        {
+            string pause;
+
+            do
+            {   Console.WriteLine ("\n");
+                Console.WriteLine ("Write 'Pause' if you want to pause or 'Continue' to end the turn.");
+                Console.Write ("\n>> ");
+                pause = Console.ReadLine ();
+
+                if (pause == "Pause") return ("Pause");
+                else if (pause == "Continue") return ("Continue");
+                else Console.WriteLine ("\nChoise unavailable.");
+
+            } while (pause != "Pause" && pause != "Continue");
+
+            return (pause);
+        }
+
+        public static string PauseMenu (string pause)
+        {
+            View.CleanScreen ();
+
+            Console.WriteLine ("\n");
+            Console.WriteLine ("==============================================");
+            Console.WriteLine ("================= Pause Menu =================");
+            Console.WriteLine ("==============================================");
+            Console.WriteLine ("                  ==========                  ");
+            Console.WriteLine ("                  = Resume =                  ");
+            Console.WriteLine ("                  ==========                  ");
+            Console.WriteLine ("               ================               ");
+            Console.WriteLine ("               = Instructions =               ");
+            Console.WriteLine ("               ================               ");
+            Console.WriteLine ("                ==============                ");
+            Console.WriteLine ("                = Save Match =                ");
+            Console.WriteLine ("                ==============                ");
+            Console.WriteLine ("                  ==========                  ");
+            Console.WriteLine ("                  = Resign =                  ");
+            Console.WriteLine ("                  ==========                  ");
+            Console.WriteLine ("==============================================");
+            Console.WriteLine ("\n");
+            Console.WriteLine ("Which option would you like to choose?");
+            Console.Write ("\n>> ");
+
+            return (Console.ReadLine ());
+        }
+
+
+         public static void Resign (Player[] player)
+        {
+            if (player[0].Turn == "Our Turn")
+            {
+                Console.WriteLine ("\n");
+                Console.WriteLine ("================================================================");
+                Console.WriteLine ("= The King of the West has decided to retreat from the battle! =");
+                Console.WriteLine ("================================================================");
+                View.Back ();
+            }
+            else
+            {
+                Console.WriteLine ("\n");
+                Console.WriteLine ("================================================================");
+                Console.WriteLine ("= The King of the East has decided to retreat from the battle! =");
+                Console.WriteLine ("================================================================");
+                View.Back (); 
+            }
+        }
 
 
         public static void Quit ()
