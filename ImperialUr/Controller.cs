@@ -15,6 +15,52 @@ namespace ImperialUr
 
         public void Execute (View view) // Main method of the Controller, and the one that will serve as the game base
         {
+            string command = null;
+
+            do 
+            {
+
+                View.CleanScreen();
+                command = View.Menu();
+
+
+
+                if (command == "New Game")
+                {
+                    
+                }
+
+
+
+                else if (command == "Continue")
+                {
+                    
+                }
+
+
+
+                else if (command == "Team")
+                {
+                   
+                }
+
+
+
+                else if (command == "Quit") 
+                {
+                    continue;
+                }
+
+
+
+                else 
+                {
+                    
+                }
+                
+
+                
+            } while (command != "Quit");
 
         }
     }
