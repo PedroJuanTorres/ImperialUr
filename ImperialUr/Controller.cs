@@ -306,7 +306,99 @@ namespace ImperialUr
             }
         }
 
+        private static int ApplyMove (Square[,] field, Player[] player, string path, int roll)
+        {
+            int aux = 0;
 
-        
+            string[] point = path.Split(" ");
+            int helper = Int32.Parse(point[2]);
+
+            if (player[0].Turn == "Our Turn")
+            {
+                for (int i = 0 ; i < 8 ; i++)
+                {
+                    for (int j = 0 ; j < 3 ; j++)
+                    {
+                        if (field[i,j].Number == (helper - roll) && (field[i,j].Domain == 'w' || field[i,j].Domain == 'p')) // Previous Square of the selected piece
+                        {
+                            if (field[i,j].Number == 4 || field[i,j].Number == 8 || field[i,j].Number == 14) 
+                            {
+                                field[i,j].Symbol = 'X';
+                            }
+                            if (field[i,j].Symbol == ' ') player[0].PiecesStart -= 1;
+                            if (field[i,j].Symbol == 'W') field[i,j].Symbol = '_';
+                            if (helper == 15) field[i,j].Symbol = '_';
+                        }
+                    }
+                }
+
+                for (int i = 0 ; i < 8 ; i++)
+                {
+                    for (int j = 0 ; j < 3 ; j++)
+                    {
+                        if (field[i,j].Number == helper && (field[i,j].Domain == 'w' || field[i,j].Domain == 'p')) // Future Square of the selected piece
+                        {
+                            if (field[i,j].Number == 4 || field[i,j].Number == 8 || field[i,j].Number == 14)
+                            {
+                                aux = field[i,j].Number;
+                                field[i,j].Symbol = 'W';
+                            }
+                            if (field[i,j].Symbol == ' ') player[0].PiecesFinish += 1;
+                            if (field[i,j].Symbol == '_') field[i,j].Symbol = 'W';
+                            if (field[i,j].Symbol == 'E') 
+                            {
+                                field[i,j].Symbol = 'W';
+                                player[1].PiecesStart += 1;
+                            }
+                        }
+                    }
+                }
+                return (aux);
+            }
+            else
+            {
+                for (int i = 0 ; i < 8 ; i++)
+                {
+                    for (int j = 0 ; j < 3 ; j++)
+                    {
+                        if (field[i,j].Number == (helper - roll) && (field[i,j].Domain == 'w' || field[i,j].Domain == 'p')) // Previous Square of the selected piece
+                        {
+                            if (field[i,j].Number == 4 || field[i,j].Number == 8 || field[i,j].Number == 14) 
+                            {
+                                field[i,j].Symbol = 'X';
+                            }
+                            if (field[i,j].Symbol == ' ') player[1].PiecesStart -= 1;
+                            if (field[i,j].Symbol == 'E') field[i,j].Symbol = '_';
+                            if (helper == 15) field[i,j].Symbol = '_';
+                        }
+                    }
+                }
+
+                for (int i = 0 ; i < 8 ; i++)
+                {
+                    for (int j = 0 ; j < 3 ; j++)
+                    {
+                        if (field[i,j].Number == helper && (field[i,j].Domain == 'e' || field[i,j].Domain == 'p')) // Future Square of the selected piece
+                        {
+                            if (field[i,j].Number == 4 || field[i,j].Number == 8 || field[i,j].Number == 14)
+                            {
+                                aux = field[i,j].Number;
+                                field[i,j].Symbol = 'E';
+                            }
+                            if (field[i,j].Symbol == ' ') player[1].PiecesFinish += 1;
+                            if (field[i,j].Symbol == '_') field[i,j].Symbol = 'E';
+                            if (field[i,j].Symbol == 'W') 
+                            {
+                                field[i,j].Symbol = 'E';
+                                player[0].PiecesStart += 1;
+                            }
+                        }
+                    }
+                }
+                return (aux);
+            }
+            return (0);
+        }
+
     }
 }
