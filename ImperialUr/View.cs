@@ -8,27 +8,40 @@ namespace ImperialUr
         private Square[,] field;
         private Player[] player;
 
-
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="controller">Class that controls the flow of the game</param>
+        /// <param name="field">Game map</param>
+        /// <param name="player">Players status</param>
         public View (Controller controller, Square[,] field, Player[] player)
         {
             this.controller = controller;
             this.field = field;
             this.player = player;
         }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Clean all text from screen
+        /// </summary>
         public static void CleanScreen ()
         {
             Console.Clear ();
         }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Text to tell user how to go back to the menu
+        /// </summary>
         public static void Back ()
         {
             Console.WriteLine ("\n");
             Console.WriteLine ("Press any key to go back to the Menu ...");
             Console.ReadKey ();
         }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Text to tell user that his option doesn't exists
+        /// </summary>
         public static void InexistentOption ()
         {
             View.CleanScreen ();
@@ -37,7 +50,10 @@ namespace ImperialUr
             Console.WriteLine ("Verify the option chosen and try again.");
             View.Back ();
         }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Text to tell that this area is under construction
+        /// </summary>
         public static void UnderConstruction ()
         {
             View.CleanScreen ();
@@ -45,7 +61,11 @@ namespace ImperialUr
             Console.WriteLine ("We are sorry to inform you that this section is under construction and will be available soon.");
             View.Back ();
         }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Text to show the main menu
+        /// </summary>
+        /// <returns>The input of the user</returns>
         public static string Menu () 
         {   
             Console.WriteLine ("\n");
@@ -71,7 +91,11 @@ namespace ImperialUr
 
             return (Console.ReadLine ());
         }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Text to show the instructions
+        /// </summary>
+        /// <param name="c">Differentiate in which situation the method is called</param>
         public static void ShowInstructions (string c)
         {
             View.CleanScreen ();
@@ -103,7 +127,11 @@ namespace ImperialUr
                 View.CleanScreen ();
             }
         }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Text to show game map
+        /// </summary>
+        /// <param name="field">Game map</param>
         public static void ShowBoardField (Square[,] field)
         {
             for (int i = 0; i < 8; i++)
@@ -141,7 +169,13 @@ namespace ImperialUr
                 }
             }
         }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Show game status
+        /// </summary>
+        /// <param name="player">Players status</param>
+        /// <param name="turn">Which palyer turn is</param>
+        /// <param name="roll">Sum of dices cast</param>
         public static void ShowBoardStatus (Player[] player, int turn, int roll)
         {
             Console.WriteLine ("                    ++++++++++                     ");
@@ -173,7 +207,10 @@ namespace ImperialUr
                 Console.Write ("\n");   
             }
         }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Text to the the user to roll the dices
+        /// </summary>
         public static void RollDices ()
         {
             Console.WriteLine ("Press 'Enter' to roll the dices!");
@@ -190,7 +227,12 @@ namespace ImperialUr
             }
             View.CleanScreen();
         }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Text to show the possible plays
+        /// </summary>
+        /// <param name="plays">A list of possible plays</param>
+        /// <param name="c">Differentiate in which situation the method is called</param>
         public static void ShowBoardPlays (string[] plays, string c)
         {
             Console.WriteLine ("+++++++++");
@@ -228,7 +270,12 @@ namespace ImperialUr
                 View.CleanScreen();               
             }
         }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Receive plays input, check if its valid and telling what is necessary 
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         public static string VerifyandRetrieveImput (string[] p)
         {
             bool result = false;
@@ -256,7 +303,11 @@ namespace ImperialUr
 
             return ("false");
         }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Message to tell who won
+        /// </summary>
+        /// <param name="king">Player name</param>
         public static void Victory (string king)
         {
             if (king == "West") 
@@ -277,7 +328,11 @@ namespace ImperialUr
                 View.Back ();
             }
         }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Receive input while in pause
+        /// </summary>
+        /// <returns>Input of the player</returns>
         public static string PauseInput () 
         {
             string pause;
@@ -302,8 +357,12 @@ namespace ImperialUr
 
             return (pause);
         }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public static string PauseMenu (string pause)
+
+        /// <summary>
+        /// Show pause menu
+        /// </summary>
+        /// <returns>Input written by the player</returns>
+        public static string PauseMenu ()
         {
             View.CleanScreen ();
 
@@ -330,7 +389,11 @@ namespace ImperialUr
 
             return (Console.ReadLine ());
         }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Resign of the match
+        /// </summary>
+        /// <param name="player">Player status</param>
         public static void Resign (Player[] player)
         {
             if (player[0].Turn == "Our Turn")
@@ -350,7 +413,10 @@ namespace ImperialUr
                 View.Back (); 
             }
         }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Show credits of the game
+        /// </summary>
         public static void Credits () 
         {
             View.CleanScreen ();
@@ -371,7 +437,10 @@ namespace ImperialUr
 
             View.Back ();
         }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Quit message
+        /// </summary>
         public static void Quit ()
         {
             View.CleanScreen ();

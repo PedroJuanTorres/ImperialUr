@@ -5,6 +5,9 @@ namespace ImperialUr
 {
     public class Program
     {
+        /// <summary>
+        /// First method to be called
+        /// </summary>
         private static void Main ()
         {
             Square[,] field = new Square [8,3] // Creation of the Game Field

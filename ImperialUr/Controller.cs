@@ -7,13 +7,21 @@ namespace ImperialUr
         private Square[,] field;
         private Player[] player;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="field">Game map</param>
+        /// <param name="player">Players Status</param>
         public Controller (Square[,] field, Player[] player) // Constructor 
         {
             this.field = field;
             this.player = player;
         }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Runs the game
+        /// </summary>
+        /// <param name="view">The class that print and receives input from the user</param>
         public void Execute (View view)
         {
             string command = null;
@@ -81,7 +89,7 @@ namespace ImperialUr
                                     {
                                         do
                                         {
-                                            pause = View.PauseMenu (pause);
+                                            pause = View.PauseMenu ();
 
                                             if (pause == "Resume") View.CleanScreen();
                                             else if (pause == "Instructions")
@@ -161,7 +169,7 @@ namespace ImperialUr
                                         {
                                             do
                                             {
-                                                pause = View.PauseMenu (pause);
+                                                pause = View.PauseMenu ();
 
                                                 if (pause == "Resume") View.CleanScreen();
                                                 else if (pause == "Instructions")
@@ -227,8 +235,14 @@ namespace ImperialUr
 
             View.Quit();
         }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        private static void CheckPieces (Square[,] field, Player[] player, int helper, int[] bigHelper) // Check the position of the pieces on the Board
+        /// <summary>
+        /// Check the position of the pieces on the Board
+        /// </summary>
+        /// <param name="field">Game map</param>
+        /// <param name="player">Players status</param>
+        /// <param name="helper">An int to help in the logic</param>
+        /// <param name="bigHelper">Array of int to return data to its father method</param>
+        private static void CheckPieces (Square[,] field, Player[] player, int helper, int[] bigHelper) 
         {
             for (int i = 0 ; i < 8 ; i++)
             {
@@ -263,8 +277,16 @@ namespace ImperialUr
                 }
             }
         }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        private static string CheckPlays (Square[,] field, Player[] player, int r, int helper) // Check if it's possible to move a piece
+
+        /// <summary>
+        /// Check if it's possible to move a piece
+        /// </summary>
+        /// <param name="field">Game map</param>
+        /// <param name="player">Player Status</param>
+        /// <param name="r">Result of the dice cast</param>
+        /// <param name="helper">An int to help in the logic</param>
+        /// <returns></returns>
+        private static string CheckPlays (Square[,] field, Player[] player, int r, int helper)  
         {
             if (helper + r <= 15)
             {
@@ -316,7 +338,15 @@ namespace ImperialUr
             }
             else return (null); 
         }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Method to join CheckPieces with CheckPlays and handle their logic 
+        /// </summary>
+        /// <param name="field">Game map</param>
+        /// <param name="player">Players status</param>
+        /// <param name="plays">List of available moves</param>
+        /// <param name="aux">Auxiliary variable</param>
+        /// <param name="roll">Sum of dice cast</param>
         private static void CheckMoves (Square[,] field, Player[] player, string[] plays, int aux, int roll)
         {
             aux = 20;
@@ -330,7 +360,15 @@ namespace ImperialUr
                 plays[i] = Controller.CheckPlays (field, player, roll, aux);
             }
         }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Update the game map
+        /// </summary>
+        /// <param name="field">Game map</param>
+        /// <param name="player">Players status</param>
+        /// <param name="path">Auxiliary string type variable</param>
+        /// <param name="roll">Sum of dice cast</param>
+        /// <returns></returns>
         private static int ApplyMove (Square[,] field, Player[] player, string path, int roll)
         {
             int aux = 0;

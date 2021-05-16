@@ -11,7 +11,15 @@ namespace ImperialUr
         public char Symbol {get; set;} // Property
         private static readonly Random rand = new Random (); // Instance Variable
 
-        public Square (int x, int y, int number, char domain, char symbol) // Constructor
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="x">X cordinate</param>
+        /// <param name="y">Y cordinate</param>
+        /// <param name="number">number of the square</param>
+        /// <param name="domain">Which squares can players move into or not</param>
+        /// <param name="symbol">current item on the square</param>
+        public Square (int x, int y, int number, char domain, char symbol) 
         {
             X = x;
             Y = y;
@@ -20,7 +28,11 @@ namespace ImperialUr
             Symbol = symbol;
         }
 
-        public static int Dices () // Method that returns the sum of 4 random numbers between 0 and 1
+        /// <summary>
+        /// Roll the dices
+        /// </summary>
+        /// <returns>the sum of the rolls</returns>
+        public static int Dices ()
         {
             int n = 0;
 
