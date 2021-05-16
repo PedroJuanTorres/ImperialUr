@@ -166,6 +166,164 @@ namespace ImperialUr
         }
 
 
+        public static void Victory (string king)
+        {
+            if (king == "West") 
+            {
+                Console.WriteLine ("\n");
+                Console.WriteLine ("=========================================");
+                Console.WriteLine ("= The King of the West won the match!!! =");
+                Console.WriteLine ("=========================================");
+                View.Back ();
+            }
+
+            if (king == "East") 
+            {
+                Console.WriteLine ("\n");
+                Console.WriteLine ("=========================================");
+                Console.WriteLine ("= The King of the East won the match!!! =");
+                Console.WriteLine ("=========================================");
+                View.Back ();
+            }
+        }
+
+
+
+
+        public static void ShowBoardField (Square[,] field)
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                if (i == 0) Console.Write ("\n");
+
+                if (i == 4 || i == 5) Console.WriteLine ("\n                        _                         ++");
+                else Console.WriteLine ("\n             _          _          _              ++");
+
+                for (int j = 0; j < 3; j++)
+                {
+                    if (j == 0) Console.Write ("            ");
+                    else Console.Write ("        ");
+
+                    if ((i == 4 || i == 5) && (j == 0 || j == 2))
+                    {
+                        Console.Write ("  ");
+                        Console.Write (field[i,j].Symbol);
+                    }
+                    else
+                    {
+                        Console.Write ("|");
+                        Console.Write (field[i,j].Symbol);
+                        Console.Write ("|");
+                    }
+
+                    if (j == 2) Console.Write("             ++");
+                }
+
+                if (i == 7) 
+                {   
+                    Console.WriteLine ("\n                                                  ++");
+                    Console.WriteLine ("++++++++++++++++++++++++++++++++++++++++++++++++++++"  );
+                    Console.WriteLine ("++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+                }
+            }
+        }
+
+
+
+
+        public static void ShowBoardStatus (Player[] player, int turn, int roll)
+        {
+            Console.WriteLine ("                    ++++++++++                     ");
+            Console.WriteLine ("                    ++ Turn ++                     ");
+            if (turn < 10) Console.WriteLine ($"                    ++  0{turn}  ++                     ");
+            else Console.WriteLine ($"                    ++  {turn}  ++                     ");
+            Console.WriteLine ("                    ++++++++++                      ");  
+            Console.WriteLine ("++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            Console.WriteLine ("++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            Console.WriteLine ($"    {player[0].Name}    ++    {player[1].Name}     ");
+            Console.WriteLine ("                        ++                          ");
+            if (player[0].Turn == "Our Turn") Console.WriteLine ($"Turn: {player[0].Turn}          ++ Turn: {player[1].Turn}");
+            else Console.WriteLine ($"Turn: {player[0].Turn}      ++ Turn: {player[1].Turn}");
+            Console.WriteLine ($"Pieces (Start): {player[0].PiecesStart}       ++ Pieces (Start): {player[1].PiecesStart}");
+            Console.WriteLine ($"Pieces (Finish): {player[0].PiecesFinish}      ++ Pieces (Finish): {player[0].PiecesFinish}");
+            if (player[0].Turn == "Our Turn") Console.WriteLine ($"Dices Roll: {roll}           ++");
+            else Console.WriteLine ($"                        ++ Dices Roll: {roll}");
+            Console.WriteLine ("                        ++");
+            if (player[0].Turn == "Not Our Turn")
+            {
+                Console.WriteLine ("++++++++++++++++++++++++++");
+                Console.WriteLine ("++++++++++++++++++++++++++");
+                Console.Write ("\n"); 
+            }
+            else
+            {
+                Console.WriteLine ("                        ++++++++++++++++++++++++++++");
+                Console.WriteLine ("                        ++++++++++++++++++++++++++++"); 
+                Console.Write ("\n");   
+            }
+        }
+
+
+
+
+        public static void RollDices ()
+        {
+            Console.WriteLine ("Press 'Enter' to roll the dices!");
+
+            while (Console.ReadKey (true).Key != ConsoleKey.Enter) 
+            {
+                View.CleanScreen();
+
+                Console.WriteLine ("\n");
+                Console.WriteLine ("===============================");
+                Console.WriteLine ("= I beg of you, your Majesty! =");
+                Console.WriteLine ("=== Roll the goddamn dices! ===");
+                Console.WriteLine ("===============================");
+            }
+            View.CleanScreen();
+        }
+
+
+
+        public static void ShowBoardPlays (string[] plays, string c)
+        {
+            Console.WriteLine ("+++++++++");
+            Console.WriteLine ("+ Plays +");
+            Console.WriteLine ("+++++++++");
+            Console.Write("\n");
+
+            if (c == "Available Moves")
+            { 
+                for (int i = 0 ; i < 7 ; i++)
+                {
+                    if (plays[i] == null) continue;
+                    else Console.WriteLine (plays[i]);
+                }
+            }
+            
+            if (c == "Unavailable Moves")
+            {
+                Console.WriteLine ("=================================================================");
+                Console.WriteLine ("= Your Majesty, I regret to inform that our troops cannot move. =");
+                Console.WriteLine ("=================================================================");
+                Console.WriteLine ("\n");
+                Console.WriteLine ("Press 'Enter' to pass the turn.");
+
+                while (Console.ReadKey (true).Key != ConsoleKey.Enter) 
+                {
+                    View.CleanScreen();
+
+                    Console.WriteLine ("\n");
+                    Console.WriteLine ("===========================================================");
+                    Console.WriteLine ("= I understand your frustation your Highness, but please. =");
+                    Console.WriteLine ("============= Let the opponent have his turn! =============");
+                    Console.WriteLine ("===========================================================");
+                }
+                View.CleanScreen();               
+            }
+        }
+
+
         public static string PauseInput () 
         {
             string pause;
