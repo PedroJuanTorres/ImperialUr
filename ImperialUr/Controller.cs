@@ -27,21 +27,21 @@ namespace ImperialUr
 
                 if (command == "New Game")
                 {
-                    
+                    View.ShowInstructions("FirstTime");
                 }
 
 
 
                 else if (command == "Continue")
                 {
-                    
+                    View.UnderConstruction();
                 }
 
 
 
                 else if (command == "Team")
                 {
-                   
+                   View.Credits();
                 }
 
 
@@ -55,12 +55,13 @@ namespace ImperialUr
 
                 else 
                 {
-                    
+                    View.InexistentOption();
                 }
                 
 
                 
             } while (command != "Quit");
+            View.Quit();
 
         }
     }
