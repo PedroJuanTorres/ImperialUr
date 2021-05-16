@@ -33,7 +33,7 @@ namespace ImperialUr
                     string option = null;
                     string pause = null;
                     string[] plays = new string[7];
-                    
+
                     View.ShowInstructions("FirstTime");
 
                     do
@@ -207,8 +207,106 @@ namespace ImperialUr
 
                 
             } while (command != "Quit");
+
             View.Quit();
 
         }
+
+        private static int CheckPieces (Square[,] field, Player[] player, int helper) // Check the position of the pieces on the Board
+        {
+            for (int i = 0 ; i < 8 ; i++)
+            {
+                for (int j = 0 ; j < 3 ; j++)
+                {
+                    if (player[0].Turn == "Our Turn")
+                    {
+                        if (field[i,j].Symbol == 'W' && field[i,j].Number != helper) 
+                        {
+                            helper = field[i,j].Number;
+                            return (helper); 
+                        }
+
+                        if (player[0].PiecesStart > 0) return (0); 
+                    }
+                    else
+                    {
+                        if (field[i,j].Symbol == 'E' && field[i,j].Number != helper)
+                        {
+                            helper = field[i,j].Number;
+                            return (helper); 
+                        }
+
+                        if (player[1].PiecesStart > 0) return (0);
+                    } 
+                }
+            }
+            return (20);
+        }
+
+        private static string CheckPlays (Square[,] field, Player[] player, int r, int helper) // Check if it's possible to move a piece
+        {
+            if (helper + r <= 15)
+            {
+                for (int i = 0 ; i < 8 ; i++)
+                {
+                    for (int j = 0 ; j < 3 ; j++)
+                    {
+                        if (player[0].Turn == "Our Turn")
+                        {
+                            if (field[i,j].Number == helper)
+                            {
+                                helper = field[i,j].Number + r;
+
+                                for (int z = 0 ; z < 8 ; z++)
+                                {
+                                    for (int v = 0 ; v < 3 ; v++)
+                                    {
+                                        if (field[z,v].Number == helper)
+                                        {
+                                            if (field[z,v].Symbol == 'W') return (null);
+                                            else return ($"W to {field[z,v].Number}");
+                                        }
+                                    }
+                                } 
+                            } 
+                        }
+                        else
+                        {
+                            if (field[i,j].Number == helper)
+                            {
+                                helper = field[i,j].Number + r;
+
+                                for (int z = 0 ; z < 8 ; z++)
+                                {
+                                    for (int v = 0 ; v < 3 ; v++)
+                                    {
+                                        if (field[z,v].Number == helper)
+                                        {
+                                            if (field[z,v].Symbol == 'E') return (null);
+                                            else return ($"E to {field[z,v].Number}");
+                                        }
+                                    }
+                                } 
+                            }
+                        }
+                    }
+                }
+                return (null);
+            }
+            else return (null); 
+        }
+
+
+        private static void CheckMoves (Square[,] field, Player[] player, string[] p, int aux, int roll)
+        {
+            for (int i = 0 ; i < 7 ; i++)
+            {
+                aux = Controller.CheckPieces (field, player, aux);
+                p[i] = Controller.CheckPlays (field, player, roll, aux);
+            }
+        }
+
+
+        
     }
 }
