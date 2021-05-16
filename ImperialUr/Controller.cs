@@ -4,16 +4,17 @@ namespace ImperialUr
 {
     public class Controller
     {
-        private Square[,] field; // Instance Variable
-        private Player[] player; // Instance Variable
+        private Square[,] field;
+        private Player[] player;
 
         public Controller (Square[,] field, Player[] player) // Constructor 
         {
             this.field = field;
             this.player = player;
         }
-
-        public void Execute (View view) // Main method of the Controller, and the one that will serve as the game base
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        public void Execute (View view)
         {
             string command = null;
 
@@ -22,9 +23,7 @@ namespace ImperialUr
 
                 View.CleanScreen();
                 command = View.Menu();
-
-
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 if (command == "New Game")
                 {
                     int turn = 0;
@@ -34,7 +33,7 @@ namespace ImperialUr
                     string pause = null;
                     string[] plays = new string[7];
 
-                    View.ShowInstructions("FirstTime");
+                    View.ShowInstructions ("FirstTime");
 
                     do
                     {
@@ -59,37 +58,51 @@ namespace ImperialUr
                             if (roll != 0)
                             {
                                 Controller.CheckMoves (field, player, plays, aux, roll);
-                                View.ShowBoardPlays (plays, "Available Moves");
-
-                                option = View.VerifyandRetrieveImput (player, plays);
-                                aux = Controller.ApplyMove (field, player, option, roll);
-                                pause = View.PauseInput();
-
-                                if (pause == "Pause") // Pause Menu
+                                if (plays[0] != null || plays[1] != null || plays[2] == null ||
+                                    plays[3] != null || plays[4] != null || plays[5] == null ||
+                                    plays[6] != null)
                                 {
-                                    do
+                                    View.ShowBoardPlays (plays, "Available Moves");
+                                    option = View.VerifyandRetrieveImput (plays);
+                                    for (int i = 0 ; i < 7 ; i++)
                                     {
-                                        pause = View.PauseMenu (pause);
+                                        plays[i] = null;
+                                    }
 
-                                        if (pause == "Resume") View.CleanScreen();
-                                        else if (pause == "Instructions")
-                                        {
-                                            View.ShowInstructions ("Instructions");
-                                        }
+                                    aux = Controller.ApplyMove (field, player, option, roll);
 
-                                        else if (pause == "Save Match")
-                                        {
-                                            View.UnderConstruction();
-                                        }
-                                        else if (pause == "Resign") View.CleanScreen();
-                                        else
-                                        {
-                                            View.InexistentOption();
-                                        }
+                                    View.CleanScreen();
+                                    View.ShowBoardField (field);
+                                    View.ShowBoardStatus (player, turn, roll);
+                                        
+                                    pause = View.PauseInput();
 
-                                    } while (pause != "Resume" && pause != "Resign");
-                                }
-                                View.CleanScreen();
+                                    if (option == "Pause") // Pause Menu
+                                    {
+                                        do
+                                        {
+                                            pause = View.PauseMenu (pause);
+
+                                            if (pause == "Resume") View.CleanScreen();
+                                            else if (pause == "Instructions")
+                                            {
+                                                View.ShowInstructions ("Instructions");
+                                            }
+
+                                            else if (pause == "Save Match")
+                                            {
+                                                View.UnderConstruction();
+                                            }
+                                            else if (pause == "Resign") View.CleanScreen();
+                                            else
+                                            {
+                                                View.InexistentOption();
+                                            }
+
+                                        } while (pause != "Resume" && pause != "Resign");
+                                    }
+                                    View.CleanScreen(); 
+                                } else View.ShowBoardPlays (plays, "Unavailable Moves");
                             }
                             else 
                             {
@@ -124,37 +137,52 @@ namespace ImperialUr
                                 if (roll != 0)
                                 {
                                     Controller.CheckMoves (field, player, plays, aux, roll);
-                                    View.ShowBoardPlays (plays, "Available Moves");
 
-                                    option = View.VerifyandRetrieveImput (player, plays);
-                                    aux = Controller.ApplyMove (field, player, option, roll);
-                                    pause = View.PauseInput();
-
-                                    if (option == "Pause") // Pause Menu
+                                    if (plays[0] != null || plays[1] != null || plays[2] == null ||
+                                        plays[3] != null || plays[4] != null || plays[5] == null ||
+                                        plays[6] != null)
                                     {
-                                        do
+                                        View.ShowBoardPlays (plays, "Available Moves");
+                                        option = View.VerifyandRetrieveImput (plays);
+                                        for (int i = 0 ; i < 7 ; i++)
                                         {
-                                            pause = View.PauseMenu (pause);
+                                            plays[i] = null;
+                                        }
 
-                                            if (pause == "Resume") View.CleanScreen();
-                                            else if (pause == "Instructions")
-                                            {
-                                                View.ShowInstructions ("Instructions");
-                                            }
+                                        aux = Controller.ApplyMove (field, player, option, roll);
 
-                                            else if (pause == "Save Match")
-                                            {
-                                                View.UnderConstruction();
-                                            }
-                                            else if (pause == "Resign") View.CleanScreen();
-                                            else
-                                            {
-                                                View.InexistentOption();
-                                            }
+                                        View.CleanScreen();
+                                        View.ShowBoardField (field);
+                                        View.ShowBoardStatus (player, turn, roll);
+                                        
+                                        pause = View.PauseInput();
 
-                                        } while (pause != "Resume" && pause != "Resign");
-                                    }
-                                    View.CleanScreen();
+                                        if (option == "Pause") // Pause Menu
+                                        {
+                                            do
+                                            {
+                                                pause = View.PauseMenu (pause);
+
+                                                if (pause == "Resume") View.CleanScreen();
+                                                else if (pause == "Instructions")
+                                                {
+                                                    View.ShowInstructions ("Instructions");
+                                                }
+
+                                                else if (pause == "Save Match")
+                                                {
+                                                    View.UnderConstruction();
+                                                }
+                                                else if (pause == "Resign") View.CleanScreen();
+                                                else
+                                                {
+                                                    View.InexistentOption();
+                                                }
+
+                                            } while (pause != "Resume" && pause != "Resign");
+                                        }
+                                        View.CleanScreen(); 
+                                    } else View.ShowBoardPlays (plays, "Unavailable Moves");   
                                 }
                                 else 
                                 {
@@ -173,46 +201,34 @@ namespace ImperialUr
                         if (player[0].PiecesFinish == 7) View.Victory ("West");
                         else View.Victory ("East");
                     }
-
                 }
-
-
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 else if (command == "Continue")
                 {
                     View.UnderConstruction();
                 }
-
-
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 else if (command == "Team")
                 {
-                   View.Credits();
+                    View.Credits();
                 }
-
-
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 else if (command == "Quit") 
                 {
                     continue;
                 }
-
-
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 else 
                 {
                     View.InexistentOption();
                 }
                 
-
-                
             } while (command != "Quit");
 
             View.Quit();
-
         }
-
-        private static int CheckPieces (Square[,] field, Player[] player, int helper) // Check the position of the pieces on the Board
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        private static void CheckPieces (Square[,] field, Player[] player, int helper, int[] bigHelper) // Check the position of the pieces on the Board
         {
             for (int i = 0 ; i < 8 ; i++)
             {
@@ -220,29 +236,34 @@ namespace ImperialUr
                 {
                     if (player[0].Turn == "Our Turn")
                     {
-                        if (field[i,j].Symbol == 'W' && field[i,j].Number != helper) 
+                        if (field[i,j].Symbol == 'W') 
                         {
-                            helper = field[i,j].Number;
-                            return (helper); 
-                        }
-
-                        if (player[0].PiecesStart > 0) return (0); 
+                            for (int k = 0 ; k < 7 ; k++)
+                            {
+                                if (field[i,j].Number != bigHelper[k])
+                                {
+                                    bigHelper[k] = field[i,j].Number;
+                                }
+                            }
+                        } 
                     }
                     else
                     {
-                        if (field[i,j].Symbol == 'E' && field[i,j].Number != helper)
+                        if (field[i,j].Symbol == 'E') 
                         {
-                            helper = field[i,j].Number;
-                            return (helper); 
+                            for (int g = 0 ; g < 7 ; g++)
+                            {
+                                if (field[i,j].Number != bigHelper[g])
+                                {
+                                    bigHelper[g] = field[i,j].Number;
+                                }
+                            }
                         }
-
-                        if (player[1].PiecesStart > 0) return (0);
                     } 
                 }
             }
-            return (20);
         }
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         private static string CheckPlays (Square[,] field, Player[] player, int r, int helper) // Check if it's possible to move a piece
         {
             if (helper + r <= 15)
@@ -295,17 +316,21 @@ namespace ImperialUr
             }
             else return (null); 
         }
-
-
-        private static void CheckMoves (Square[,] field, Player[] player, string[] p, int aux, int roll)
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        private static void CheckMoves (Square[,] field, Player[] player, string[] plays, int aux, int roll)
         {
+            aux = 20;
+            int[] auxiliary = new int[7];
+
             for (int i = 0 ; i < 7 ; i++)
             {
-                aux = Controller.CheckPieces (field, player, aux);
-                p[i] = Controller.CheckPlays (field, player, roll, aux);
+                Controller.CheckPieces (field, player, aux, auxiliary);
+                if (aux == -1) break;
+                aux = auxiliary[i];
+                plays[i] = Controller.CheckPlays (field, player, roll, aux);
             }
         }
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         private static int ApplyMove (Square[,] field, Player[] player, string path, int roll)
         {
             int aux = 0;
@@ -325,8 +350,8 @@ namespace ImperialUr
                             {
                                 field[i,j].Symbol = 'X';
                             }
-                            if (field[i,j].Symbol == ' ') player[0].PiecesStart -= 1;
                             if (field[i,j].Symbol == 'W') field[i,j].Symbol = '_';
+                            if (field[i,j].Symbol == ' ') player[0].PiecesStart -= 1;
                             if (helper == 15) field[i,j].Symbol = '_';
                         }
                     }
@@ -361,14 +386,14 @@ namespace ImperialUr
                 {
                     for (int j = 0 ; j < 3 ; j++)
                     {
-                        if (field[i,j].Number == (helper - roll) && (field[i,j].Domain == 'w' || field[i,j].Domain == 'p')) // Previous Square of the selected piece
+                        if (field[i,j].Number == (helper - roll) && (field[i,j].Domain == 'e' || field[i,j].Domain == 'p')) // Previous Square of the selected piece
                         {
                             if (field[i,j].Number == 4 || field[i,j].Number == 8 || field[i,j].Number == 14) 
                             {
                                 field[i,j].Symbol = 'X';
                             }
-                            if (field[i,j].Symbol == ' ') player[1].PiecesStart -= 1;
                             if (field[i,j].Symbol == 'E') field[i,j].Symbol = '_';
+                            if (field[i,j].Symbol == ' ') player[1].PiecesStart -= 1;
                             if (helper == 15) field[i,j].Symbol = '_';
                         }
                     }
@@ -397,8 +422,7 @@ namespace ImperialUr
                 }
                 return (aux);
             }
-            return (0);
         }
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 }

@@ -4,61 +4,48 @@ namespace ImperialUr
 {
     public class View
     {
-        private Controller controller; // Instance Variable
-        private Square[,] field; // Instance Variable
-        private Player[] player; // Instance Variable
+        private Controller controller;
+        private Square[,] field;
+        private Player[] player;
 
 
-        public View (Controller controller, Square[,] field, Player[] player) // Constructor
+        public View (Controller controller, Square[,] field, Player[] player)
         {
             this.controller = controller;
             this.field = field;
             this.player = player;
         }
-
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public static void CleanScreen ()
         {
             Console.Clear ();
         }
-
-
-         public static string VerifyandRetrieveImput (Player[] player, string[] p)
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        public static void Back ()
         {
-            int result = 0;
-            string imput = null;
-
-            do
-            {
-                int i = -1;
-                result = 0;
-                imput = null;
-
-                Console.WriteLine ("\n");
-                Console.WriteLine ("Write the path you would like to take.");
-                Console.Write ("\n>> ");
-                imput = Console.ReadLine ();
-
-                do
-                {
-                    i++;
-                    result = String.Compare (p[i], imput, true);
-
-                } while (result != 0 && i < 7);
-
-                if (result != 0) Console.WriteLine ("\nThe path written is not possible, please write an available one!");
-
-            } while (result != 0);
-
-            for (int i = 0 ; i < 7 ; i++)
-            {
-                p[i] = null;
-            }
-
-            return (imput);
+            Console.WriteLine ("\n");
+            Console.WriteLine ("Press any key to go back to the Menu ...");
+            Console.ReadKey ();
         }
-
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        public static void InexistentOption ()
+        {
+            View.CleanScreen ();
+            Console.WriteLine ("\n");
+            Console.WriteLine ("The option chosen does not exist!");
+            Console.WriteLine ("Verify the option chosen and try again.");
+            View.Back ();
+        }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        public static void UnderConstruction ()
+        {
+            View.CleanScreen ();
+            Console.WriteLine ("\n");
+            Console.WriteLine ("We are sorry to inform you that this section is under construction and will be available soon.");
+            View.Back ();
+        }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public static string Menu () 
         {   
             Console.WriteLine ("\n");
@@ -84,8 +71,7 @@ namespace ImperialUr
 
             return (Console.ReadLine ());
         }
-
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public static void ShowInstructions (string c)
         {
             View.CleanScreen ();
@@ -110,7 +96,6 @@ namespace ImperialUr
                 Console.ReadKey ();
                 View.CleanScreen ();
             }
-
             else if (c == "Instructions")
             {
                 Console.WriteLine ("\n\nPress any key to go back to the Menu ...");
@@ -118,78 +103,7 @@ namespace ImperialUr
                 View.CleanScreen ();
             }
         }
-
-
-        public static void UnderConstruction ()
-        {
-            View.CleanScreen ();
-            Console.WriteLine ("\n");
-            Console.WriteLine ("We are sorry to inform you that this section is under construction and will be available soon.");
-            View.Back ();
-        }
-
-
-        public static void InexistentOption ()
-        {
-            View.CleanScreen ();
-            Console.WriteLine ("\n");
-            Console.WriteLine ("The option chosen does not exist!");
-            Console.WriteLine ("Verify the option chosen and try again.");
-            View.Back ();
-        }
-
-
-        public static void Back ()
-        {
-            Console.WriteLine ("\n");
-            Console.WriteLine ("Press any key to go back to the Menu ...");
-            Console.ReadKey ();
-        }
-
-
-        public static void Credits () 
-        {
-            View.CleanScreen ();
-
-            Console.WriteLine ("\n");
-            Console.WriteLine ("========================");
-            Console.WriteLine ("Daniel Pinhão - 22007445");
-            Console.WriteLine ("========================");
-            Console.WriteLine ("=======================");
-            Console.WriteLine ("Pedro Torres - 22007890");
-            Console.WriteLine ("=======================");
-            Console.WriteLine ("=====================");
-            Console.WriteLine ("José Pires - 21701444");
-            Console.WriteLine ("=====================");
-
-            View.Back ();
-        }
-
-
-        public static void Victory (string king)
-        {
-            if (king == "West") 
-            {
-                Console.WriteLine ("\n");
-                Console.WriteLine ("=========================================");
-                Console.WriteLine ("= The King of the West won the match!!! =");
-                Console.WriteLine ("=========================================");
-                View.Back ();
-            }
-
-            if (king == "East") 
-            {
-                Console.WriteLine ("\n");
-                Console.WriteLine ("=========================================");
-                Console.WriteLine ("= The King of the East won the match!!! =");
-                Console.WriteLine ("=========================================");
-                View.Back ();
-            }
-        }
-
-
-
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public static void ShowBoardField (Square[,] field)
         {
             for (int i = 0; i < 8; i++)
@@ -227,10 +141,7 @@ namespace ImperialUr
                 }
             }
         }
-
-
-
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public static void ShowBoardStatus (Player[] player, int turn, int roll)
         {
             Console.WriteLine ("                    ++++++++++                     ");
@@ -245,7 +156,7 @@ namespace ImperialUr
             if (player[0].Turn == "Our Turn") Console.WriteLine ($"Turn: {player[0].Turn}          ++ Turn: {player[1].Turn}");
             else Console.WriteLine ($"Turn: {player[0].Turn}      ++ Turn: {player[1].Turn}");
             Console.WriteLine ($"Pieces (Start): {player[0].PiecesStart}       ++ Pieces (Start): {player[1].PiecesStart}");
-            Console.WriteLine ($"Pieces (Finish): {player[0].PiecesFinish}      ++ Pieces (Finish): {player[0].PiecesFinish}");
+            Console.WriteLine ($"Pieces (Finish): {player[0].PiecesFinish}      ++ Pieces (Finish): {player[1].PiecesFinish}");
             if (player[0].Turn == "Our Turn") Console.WriteLine ($"Dices Roll: {roll}           ++");
             else Console.WriteLine ($"                        ++ Dices Roll: {roll}");
             Console.WriteLine ("                        ++");
@@ -262,10 +173,7 @@ namespace ImperialUr
                 Console.Write ("\n");   
             }
         }
-
-
-
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public static void RollDices ()
         {
             Console.WriteLine ("Press 'Enter' to roll the dices!");
@@ -282,9 +190,7 @@ namespace ImperialUr
             }
             View.CleanScreen();
         }
-
-
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public static void ShowBoardPlays (string[] plays, string c)
         {
             Console.WriteLine ("+++++++++");
@@ -322,27 +228,81 @@ namespace ImperialUr
                 View.CleanScreen();               
             }
         }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        public static string VerifyandRetrieveImput (string[] p)
+        {
+            bool result = false;
+            string imput = null;
 
+            do
+            {
+                Console.WriteLine ("\n");
+                Console.WriteLine ("Write the path you would like to take.");
+                Console.Write ("\n>> ");
+                imput = Console.ReadLine ();
 
+                for (int i = 0 ; i < 7 ; i++)
+                {
+                    result = string.Equals(p[i], imput);
+                    if (result == true) return (imput);
+                }
+
+                Console.WriteLine ("\n");
+                Console.WriteLine ("==========================================================================================");
+                Console.WriteLine ("= My King, we cannot move the legions into that area, please revise the available paths. =");
+                Console.WriteLine ("==========================================================================================");
+
+            } while (result != true);
+
+            return ("false");
+        }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        public static void Victory (string king)
+        {
+            if (king == "West") 
+            {
+                Console.WriteLine ("\n");
+                Console.WriteLine ("=========================================");
+                Console.WriteLine ("= The King of the West won the match!!! =");
+                Console.WriteLine ("=========================================");
+                View.Back ();
+            }
+
+            if (king == "East") 
+            {
+                Console.WriteLine ("\n");
+                Console.WriteLine ("=========================================");
+                Console.WriteLine ("= The King of the East won the match!!! =");
+                Console.WriteLine ("=========================================");
+                View.Back ();
+            }
+        }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public static string PauseInput () 
         {
             string pause;
 
             do
             {   Console.WriteLine ("\n");
-                Console.WriteLine ("Write 'Pause' if you want to pause or 'Continue' to end the turn.");
+                Console.WriteLine ("Write 'Pause' if you want to pause or press 'Enter' to end the turn.");
                 Console.Write ("\n>> ");
                 pause = Console.ReadLine ();
 
                 if (pause == "Pause") return ("Pause");
-                else if (pause == "Continue") return ("Continue");
-                else Console.WriteLine ("\nChoise unavailable.");
+                else if (pause == "") return ("Continue");
+                else 
+                {
+                    Console.WriteLine ("\n");
+                    Console.WriteLine ("=====================================");
+                    Console.WriteLine ("= That option is unavailable, Sire! =");
+                    Console.WriteLine ("=====================================");
+                }
 
-            } while (pause != "Pause" && pause != "Continue");
+            } while (pause != "Pause" && pause != "\n");
 
             return (pause);
         }
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public static string PauseMenu (string pause)
         {
             View.CleanScreen ();
@@ -370,9 +330,8 @@ namespace ImperialUr
 
             return (Console.ReadLine ());
         }
-
-
-         public static void Resign (Player[] player)
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        public static void Resign (Player[] player)
         {
             if (player[0].Turn == "Our Turn")
             {
@@ -391,8 +350,28 @@ namespace ImperialUr
                 View.Back (); 
             }
         }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        public static void Credits () 
+        {
+            View.CleanScreen ();
 
+            Console.WriteLine ("\n");
+            Console.WriteLine ("==============================================");
+            Console.WriteLine ("============= The Developer Team =============");
+            Console.WriteLine ("=============================================="); 
+            Console.WriteLine ("============================                  ");
+            Console.WriteLine ("= Daniel Pinhão - 22007445 =                  ");
+            Console.WriteLine ("============================                  ");
+            Console.WriteLine ("===========================                   ");
+            Console.WriteLine ("= Pedro Torres - 22007890 =                   ");
+            Console.WriteLine ("===========================                   ");
+            Console.WriteLine ("=========================                     ");
+            Console.WriteLine ("= José Pires - 21701444 =                     ");
+            Console.WriteLine ("=========================                     ");
 
+            View.Back ();
+        }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public static void Quit ()
         {
             View.CleanScreen ();
