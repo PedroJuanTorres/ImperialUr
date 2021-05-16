@@ -23,6 +23,42 @@ namespace ImperialUr
         }
 
 
+         public static string VerifyandRetrieveImput (Player[] player, string[] p)
+        {
+            int result = 0;
+            string imput = null;
+
+            do
+            {
+                int i = -1;
+                result = 0;
+                imput = null;
+
+                Console.WriteLine ("\n");
+                Console.WriteLine ("Write the path you would like to take.");
+                Console.Write ("\n>> ");
+                imput = Console.ReadLine ();
+
+                do
+                {
+                    i++;
+                    result = String.Compare (p[i], imput, true);
+
+                } while (result != 0 && i < 7);
+
+                if (result != 0) Console.WriteLine ("\nThe path written is not possible, please write an available one!");
+
+            } while (result != 0);
+
+            for (int i = 0 ; i < 7 ; i++)
+            {
+                p[i] = null;
+            }
+
+            return (imput);
+        }
+
+
         public static string Menu () 
         {   
             Console.WriteLine ("\n");
