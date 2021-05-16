@@ -96,6 +96,14 @@ namespace ImperialUr
         }
 
 
+        public static void Back ()
+        {
+            Console.WriteLine ("\n");
+            Console.WriteLine ("Press any key to go back to the Menu ...");
+            Console.ReadKey ();
+        }
+
+
         public static void Credits () 
         {
             View.CleanScreen ();
